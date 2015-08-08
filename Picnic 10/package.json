@@ -1,10 +1,23 @@
 {
-    "author": {
-        "email": "nidonocu@gmail.com",
-        "name": "Nidonocu"
-    },
-    "description": "Picnic 10",
-    "main": "app.js",
-    "name": "Picnic-10",
-    "version": "0.0.0"
+  "author": {
+    "email": "nidonocu@gmail.com",
+    "name": "Nidonocu"
+  },
+  "dependencies": {
+    "backbone": "^1.2.1",
+    "bootstrap": "^3.3.5",
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "jquery": "^2.1.4",
+    "jqueryui-browser": "^1.10.2-1",
+    "mysql": "^2.8.0",
+    "underscore": "^1.8.3",
+    "underscore.string": "^3.1.1"
+  },
+  "description": "Picnic 10",
+  "license": "None",
+  "main": "app.js",
+  "name": "Picnic-10",
+  "private": true,
+  "version": "0.0.0"
 }
