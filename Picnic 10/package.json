@@ -1,0 +1,10 @@
+{
+    "author": {
+        "email": "nidonocu@gmail.com",
+        "name": "Nidonocu"
+    },
+    "description": "Picnic 10",
+    "main": "app.js",
+    "name": "Picnic-10",
+    "version": "0.0.0"
+}
