@@ -1,0 +1,24 @@
+﻿body {
+    background-color: #26282b;
+    color: #ffffff;
+}
+
+h1 {
+    color: #2EA98A;
+    font-weight:lighter;
+}
+
+h3 {
+    color: #B373E1;
+    font-weight:lighter;
+}
+
+.form-control {
+    font-family: "Source Sans Pro", "Segoe UI", "Helvetica Neue", "Helvetica", "Tahoma", sans-serif;
+    font-weight: bold;
+    color: #000;
+}
+.btn {
+    font-family: "Source Sans Pro", "Segoe UI", "Helvetica Neue", "Helvetica", "Tahoma", sans-serif;
+    font-weight: lighter;
+}

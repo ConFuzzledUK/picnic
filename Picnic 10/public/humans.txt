@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Nidonocu -- Dev -- @nidonocu
+
+# THANKS
+
+    To follow
+
+# TECHNOLOGY COLOPHON
+    HTML5, CSS3, TypeScript, JavaScript
+    jQuery, Modernizr, Bootstrap
+	Underscore, Underscore.string
+	mySQL, Node.js, Express, Jade

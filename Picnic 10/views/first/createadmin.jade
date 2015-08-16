@@ -1,0 +1,63 @@
+﻿extends ../layout.jade
+block styles
+    link(rel="stylesheet" href="/css/first.css?v=1")
+
+block body
+    nav.navbar.navbar-inverse
+        .container
+            .navbar-header
+                a.navbar-brand(href="/")
+                    img(alt="Logo" title="Logo" src="/images/sitelogo.png" style="max-height: 20px;")
+    .attractor
+        .container
+            .row
+                .col-xs-12
+                    .attractor-text-holder
+                        h1 <i class="fa fa-certificate"></i> Now with 50% more jumping help boxes!
+    br
+    .container
+        .row
+            .col-md-8
+                h1 Create your Global Administrator account
+                p A <em>Global Administrator</em> account will have full authority over the system, access to all screens and information within the system and can promote and demote other user's privileges.
+                p Global Administrator accounts can be actived and deactivated as needed, but there must always be one account with Global Administrator privileges active.
+                br
+                form.form-horizontal#createAdminForm(method="POST")
+
+                    .form-group.has-feedback#email
+                        label.col-sm-3.control-label(for="email") E-mail Address:
+                        .col-sm-6
+                            input.form-control#email(name="email", type="email", placeholder="someguy@example.com")
+                            span.fa.fa-fw.fa-exclamation-triangle.form-control-feedback#email-error-icon(aria-hidden="true")
+                            .help-inline.hidden#email-error-text
+                                p <strong>Please type a valid e-mail address</strong>
+                            .help-inline.text-muted
+                                p Your e-mail address is what you will use to sign in to the system.
+
+                    .form-group.has-feedback#nickname
+                        label.col-sm-3.control-label(for="nickname") Username:
+                        .col-sm-6
+                            input.form-control#nickname(name="nickname", type="text", placeholder="Adjective Species")
+                            span.fa.fa-fw.fa-exclamation-triangle.form-control-feedback#nickname-error-icon(aria-hidden="true")
+                            .help-inline.hidden#nickname-error-text
+                                p <strong>Please provide a nickname</strong>
+                            .help-inline.text-muted
+                                p A name we will address and refer to you by.
+                                    br
+                                    | This name doesn't have to be unique, but it helps.
+                    
+                    .form-group
+                        .col-sm-3
+                        .col-sm-6
+                            p.form-control-static.text-muted You will provide a password after confirming your e-mail address.
+
+                    .form-group
+                        .col-sm-3
+                        .col-sm-6
+                            button.btn.btn-lg.btn-success(type="submit")
+                                | Create Account
+            .col-md-4.text-center
+                img(alt='Picnic Logo', title='Picnic Logo', src="/images/logo256.png")
+
+block scripts
+    script(src="/first/createAdmin.js")

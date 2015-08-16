@@ -1,0 +1,62 @@
+﻿<!--[if lt IE 8]>    <html class="no-js oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv="x-ua-compatible" content="ie=edge")
+
+        title #{pageTitle}
+        link(rel="icon" type="image/x-icon" href="/favicon.ico")
+        link(rel="apple-touch-icon" href="apple-touch-icon.png")
+
+        meta(name="description" content="This is the registration system for ConFuzzled, a Furry Convention that takes place in Birmingham, United Kingdom.")
+        meta(name="author" content="ConFuzzled UK Ltd.")
+
+        //- Removes no-index meta on requested pages like the registration home page
+        unless allowindexing
+            meta(name="robots" content="noindex, nofollow")
+        
+        //- Mobile viewport optimized: j.mp/bplateviewport
+        meta(name="viewport" content="width=device-width,initial-scale=1")
+        
+        //- CSS - TODO: Minified Single file on prod
+        link(rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,300italic,300')
+        link(rel="stylesheet" type='text/css' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
+        link(rel="stylesheet" type='text/css' href="/bootstrap/css/bootstrap.css?v=1")
+        link(rel="stylesheet" type='text/css' href="/css/base.css?v=1")
+        block styles
+
+        //- All JavaScript at the bottom, except for Modernizr - TODO: minify on prod
+        script(src="/js/libs/modernizr-latest.js")
+    body
+        <!--[if lte IE 9]>
+        .container-fluid
+            .row
+                .col-xs-12
+                    br
+                    .alert.alert-danger
+                        p <strong>You are using an old version of Internet Explorer which is not supported.</strong>
+                        p Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+        <![endif]-->
+        noscript
+            .container-fluid
+                .row
+                    .col-xs-12
+                        br
+                        .alert.alert-danger
+                            p <strong>JavaScript is disabled!</strong>
+                            p Sorry, but to use our site, we need you to enable scripts. If you use a script blocker, please add our scripts to your whitelist. Thank you.
+        block body
+        
+        br
+        .container
+            .row
+                .col-xs-12
+                    footer.text-muted
+                        - var year = new Date().getFullYear();
+                        p.small &copy; #{year} - ConFuzzled UK Ltd. Developed by <a href="http://twitter.com/nidonocu">Nidonocu</a>.
+
+        script(src="/jquery/jquery.js")
+        script(src="/bootstrap/js/bootstrap.js")
+        block scripts

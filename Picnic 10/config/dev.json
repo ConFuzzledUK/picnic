@@ -1,0 +1,9 @@
+{
+    "database": {
+        "user": "picnic",
+        "password": "z1qi5a",
+        "database": "picnic10",
+        "timezone": "utc"
+    },
+    "installPassword": "swordfish"
+}
