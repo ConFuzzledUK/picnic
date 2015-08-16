@@ -43,6 +43,8 @@ app.use(favicon('./public/favicon.ico'));
 app.use('/jQuery', express.static('node_modules/jquery/dist'));
 // Setup up bootstrap redistributables handler
 app.use('/bootstrap', express.static('node_modules/bootstrap/dist'));
+// Setup up validator redistributables handler
+app.use('/validator', express.static('node_modules/validator'));
 // Setup static files handler
 app.use(express.static('public'));
 // Configure View engine

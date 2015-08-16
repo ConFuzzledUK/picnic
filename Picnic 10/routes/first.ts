@@ -28,10 +28,11 @@ router.get('/', function (req, res) {
 
 router.post('/', function (req, res) {
     console.log('First Password Page Check');
-    if (req.body.password == db.getInstallPassword()) {
+    if (req.body.password === db.getInstallPassword()) {
         // Redirect
         res.cookie('goodInstallPassword', req.body.password, {
-            maxAge: 900000 // 15 minutes
+            maxAge: 900000,
+            httpOnly: true
         });
         res.redirect('/first/createadmin');
     }

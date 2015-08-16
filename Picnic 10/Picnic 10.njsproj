@@ -21,7 +21,7 @@
     <OutputPath>.</OutputPath>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <NodejsPort>1337</NodejsPort>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
     <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
@@ -36,10 +36,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="config\dev.json" />
+    <Content Include="public\apple-touch-icon.png" />
+    <Content Include="public\browserconfig.xml" />
     <Content Include="public\css\base.css" />
     <Content Include="public\css\default_attractor.png" />
     <Content Include="public\css\first.css" />
     <Content Include="public\favicon.ico" />
+    <Content Include="public\humans.txt" />
+    <Content Include="public\images\logo256.png" />
+    <Content Include="public\images\sitelogo.png" />
+    <Content Include="public\tile-wide.png" />
+    <Content Include="public\tile.png" />
     <Content Include="tsd.json" />
     <Content Include="views\first\createadmin.jade" />
     <Content Include="views\first\installPassword.jade" />
@@ -49,8 +56,11 @@
     <TypeScriptCompile Include="picnic.ts" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <TypeScriptCompile Include="public\js\first\createAdmin.ts" />
     <TypeScriptCompile Include="routes\first.ts" />
+    <TypeScriptCompile Include="typings\backbone\backbone.d.ts" />
     <TypeScriptCompile Include="typings\body-parser\body-parser.d.ts" />
+    <TypeScriptCompile Include="typings\browser.d.ts" />
     <TypeScriptCompile Include="typings\cookie-parser\cookie-parser.d.ts" />
     <TypeScriptCompile Include="typings\express\express.d.ts" />
     <TypeScriptCompile Include="typings\jqueryui\jqueryui.d.ts" />
@@ -65,13 +75,17 @@
     <TypeScriptCompile Include="typings\tsd.d.ts" />
     <TypeScriptCompile Include="typings\underscore.string\underscore.string.d.ts" />
     <TypeScriptCompile Include="typings\underscore\underscore.d.ts" />
+    <TypeScriptCompile Include="typings\validator\validator.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="classes\" />
     <Folder Include="config\" />
+    <Folder Include="public\images\" />
     <Folder Include="public\js\libs\" />
     <Folder Include="public\js\first\" />
     <Folder Include="routes\" />
+    <Folder Include="typings\backbone\" />
+    <Folder Include="typings\validator\" />
     <Folder Include="views\" />
     <Folder Include="public\" />
     <Folder Include="public\css\" />
