@@ -104,7 +104,11 @@ var server = app.listen(1337, function () {
 // Configure Termination Code
 process.on('SIGINT', function () {
     console.log('Going down. Bye!');
-    process.exit(0);
+    server.removeAllListeners();
+    // Wait for database to finish active operations before shutting down
+    var db = require('db');
+    db.getPool().end(function () {
+        process.exit(0);
+    });
 });
-
 export = app;
