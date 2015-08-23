@@ -4,6 +4,8 @@ body {
     font-size: 12pt;
 }
 
+/* Horrible Colours */
+
 .test1 {
     background-color: magenta;
 }
@@ -13,6 +15,8 @@ body {
 .test3 {
     background-color: goldenrod;
 }
+
+/* Attractor Banner*/
 
 .attractor {
     background-image: url('default_attractor.png');
@@ -32,6 +36,36 @@ body {
     text-align: center;
     font-weight: bold;
 }
+
+/* Field Status */
+
+.field-info-base
+{
+    display: block;
+    margin-top: 0;
+    font-weight: bold;
+    height: 0;
+    opacity: 0;
+}
+
+.field-info-message
+{
+    margin-top: 0.5em;
+    height: auto;
+    opacity: 1;
+}
+
+.field-info-error
+{
+    color: #C91634;
+}
+
+.field-icon-loading
+{
+    color: #00a9da;
+}
+
+/* Backbone Overides */
 
 .form-group-lg .form-control{
     border-radius: 0;
