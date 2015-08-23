@@ -12,5 +12,4 @@
 /// <reference path="serve-favicon/serve-favicon.d.ts" />
 /// <reference path="underscore.string/underscore.string.d.ts" />
 /// <reference path="underscore/underscore.d.ts" />
-/// <reference path="validator/validator.d.ts" />
 /// <reference path="backbone/backbone.d.ts" />
