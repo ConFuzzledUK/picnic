@@ -107,6 +107,10 @@ router.get('/password', function (req, res) {
     console.log('Set First Admin Password Page Request');
     // Check code in GET data
     if (req.query.code) {
+        var user = new core.User();
+        user.GetByEmailCode(function (foundResult, err) {
+            res.render('first/password', { pageTitle: 'Picnic 10', username: user.username });
+        }, req.query.code, true);
     }
     else
         res.redirect('/');

@@ -7,6 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var services = require('../services');
 var _ = require("underscore.string");
 var uuid = require("node-uuid");
+var moment = require("moment");
 (function (AuditTypes) {
     AuditTypes[AuditTypes['System'] = 0] = 'System';
     AuditTypes[AuditTypes['Security'] = 1] = 'Security';
@@ -178,7 +179,7 @@ var User = (function (_super) {
         return this.email_code;
     };
     User.prototype.CountActiveAdmins = function (callback) {
-        this.connectionPool.query('SELECT COUNT(*) as "result" FROM ?? WHERE global_admin = 1 AND status = ?;', [this.tableName, userStatus.Active], function (err, res, fields) {
+        this.connectionPool.query('SELECT COUNT(*) as "result" FROM users WHERE global_admin = 1 AND status = ?;', [userStatus.Active], function (err, res, fields) {
             if (err) {
                 console.log('Database Error: ' + err);
                 callback(undefined, err);
@@ -188,8 +189,35 @@ var User = (function (_super) {
             }
         });
     };
-    User.prototype.GetByEmailCode = function (code, callback) {
-        // CONTINUE HERE
+    User.prototype.GetByEmailCode = function (callback, code, ignoreTime) {
+        var _this = this;
+        if (ignoreTime === void 0) { ignoreTime = false; }
+        if (ignoreTime) {
+            var q = "SELECT * from users WHERE email_code = ? LIMIT 1";
+            var params = [code];
+        }
+        else {
+            var q = "SELECT * from users WHERE email_code = ? AND email_code_time = ? LIMIT 1";
+            var oneHourAgo = moment().subtract('hour', 1);
+            var params = [code, oneHourAgo.toDate()];
+        }
+        this.connectionPool.query(q, params, function (err, res, fields) {
+            if (err) {
+                console.log('Database Error: ' + err);
+                callback(undefined, err);
+            }
+            else {
+                if (res.length == 1) {
+                    for (var field in res[0]) {
+                        _this[field] = res[0][field];
+                    }
+                    _this._isChanged = false;
+                    callback(true);
+                }
+                else
+                    callback(false);
+            }
+        });
     };
     return User;
 })(services.model);

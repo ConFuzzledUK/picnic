@@ -2,6 +2,7 @@
 import services = require('../services');
 import _ = require("underscore.string");
 import uuid = require("node-uuid");
+import moment = require("moment");
 
 export enum AuditTypes { 'System', 'Security', 'Payment', 'Data' };
 
@@ -160,7 +161,7 @@ export class User extends services.model {
     }
 
     CountActiveAdmins(callback: (res: number, err?: Error) => void) {
-        this.connectionPool.query('SELECT COUNT(*) as "result" FROM ?? WHERE global_admin = 1 AND status = ?;', [this.tableName, userStatus.Active], function (err, res, fields) {
+        this.connectionPool.query('SELECT COUNT(*) as "result" FROM users WHERE global_admin = 1 AND status = ?;', [userStatus.Active], function (err, res, fields) {
             if (err) {
                 console.log('Database Error: ' + err);
                 callback(undefined, err);
@@ -171,7 +172,32 @@ export class User extends services.model {
         });
     }
 
-    GetByEmailCode(code: string, callback: (res: User, err?: Error) => void) {
-        // CONTINUE HERE
+    GetByEmailCode(callback: (recordFound: boolean, err?: Error) => void, code: string, ignoreTime: boolean = false) {
+        if (ignoreTime) {
+            var q = "SELECT * from users WHERE email_code = ? LIMIT 1";
+            var params = <any>[code];
+        }
+        else {
+            var q = "SELECT * from users WHERE email_code = ? AND email_code_time = ? LIMIT 1";
+            var oneHourAgo = moment().subtract('hour', 1);
+            var params = <any>[code, oneHourAgo.toDate()];
+        }
+        this.connectionPool.query(q, params, (err, res: Array<User>, fields) => {
+            if (err) {
+                console.log('Database Error: ' + err);
+                callback(undefined, err);
+            }
+            else {
+                if (res.length == 1) {
+                    for (var field in res[0]) {
+                        this[field] = res[0][field];
+                    }
+                    this._isChanged = false;
+                    callback(true);
+                }
+                else
+                    callback(false);
+            }
+        });
     }
 }
