@@ -24,23 +24,21 @@ block body
                 br
                 form.form-horizontal#createAdminForm(method="POST")
 
-                    .form-group.has-feedback#email
+                    .form-group.has-feedback#email-group
                         label.col-sm-3.control-label(for="email") E-mail Address:
                         .col-sm-6
-                            input.form-control#email(name="email", type="email", placeholder="someguy@example.com")
-                            span.fa.fa-fw.fa-exclamation-triangle.form-control-feedback#email-error-icon(aria-hidden="true")
-                            .help-inline.hidden#email-error-text
-                                p <strong>Please type a valid e-mail address</strong>
+                            input.form-control#email(name="email", type="email", required, placeholder="someguy@example.com")
+                            span.fa.fa-fw.form-control-feedback#email-state-icon(aria-hidden="true")
+                            .field-info-base#email-state-text
                             .help-inline.text-muted
                                 p Your e-mail address is what you will use to sign in to the system.
 
-                    .form-group.has-feedback#nickname
-                        label.col-sm-3.control-label(for="nickname") Username:
+                    .form-group.has-feedback#username-group
+                        label.col-sm-3.control-label(for="username") Username:
                         .col-sm-6
-                            input.form-control#nickname(name="nickname", type="text", placeholder="Adjective Species")
-                            span.fa.fa-fw.fa-exclamation-triangle.form-control-feedback#nickname-error-icon(aria-hidden="true")
-                            .help-inline.hidden#nickname-error-text
-                                p <strong>Please provide a nickname</strong>
+                            input.form-control#username(name="username", type="text", required, placeholder="Adjective Species")
+                            span.fa.fa-fw.form-control-feedback#username-state-icon(aria-hidden="true")
+                            .field-info-base#username-state-text
                             .help-inline.text-muted
                                 p A name we will address and refer to you by.
                                     br
@@ -60,4 +58,5 @@ block body
                 img(alt='Picnic Logo', title='Picnic Logo', src="/images/logo256.png")
 
 block scripts
-    script(src="/first/createAdmin.js")
+    //script(src="/js/formfields.js")
+    script(src="/js/first/createAdmin.js")

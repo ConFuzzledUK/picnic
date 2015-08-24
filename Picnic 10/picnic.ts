@@ -30,7 +30,7 @@ else {
 }
 
 // Set up Database
-import db = require('db');
+import db = require('services');
 
 // Set up auditor
 import core = require('./classes/core');
@@ -56,11 +56,15 @@ else {
 app.use(favicon('./public/favicon.ico'));
 
 // Setup up jQuery redistributables handler
-app.use('/jQuery', express.static('node_modules/jquery/dist'));
+app.use('/js/libs', express.static('node_modules/jquery/dist'));
 // Setup up bootstrap redistributables handler
 app.use('/bootstrap', express.static('node_modules/bootstrap/dist'));
-// Setup up validator redistributables handler
-app.use('/validator', express.static('node_modules/validator'));
+// Setup up underscore redistributables handler
+app.use('/js/libs', express.static('node_modules/underscore'));
+// Setup up underscore.string redistributables handler
+app.use('/js/libs', express.static('node_modules/underscore.string/dist'));
+// Setup up backbone redistributables handler
+app.use('/js/libs', express.static('node_modules/backbone'));
 // Setup static files handler
 app.use(express.static('public'));
 
@@ -75,13 +79,13 @@ app.use('/first', firstRoutes);
 
 // Configure Index Page Handler
 app.get('/', function (req, res) {
-    var user = new core.user();
+    var user = new core.User();
     user.Count(function (count) {
         if (count == 0) {
             res.redirect('/first');
         }
         else {
-            throw 'NotImplemented';
+            res.redirect('/first');//throw 'NotImplemented';
         }
     });
 });
@@ -97,7 +101,6 @@ app.use(errorHandler);
 var server = app.listen(1337, function () {
     var host = server.address().address;
     var port = server.address().port;
-
     console.log('HTTP Server now listening at http://%s:%s', host, port);
 });
 

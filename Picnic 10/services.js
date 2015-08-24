@@ -1,5 +1,6 @@
 var fs = require('fs');
 var mySql = require('mysql');
+var nodemailer = require('nodemailer');
 // Choose config file
 var arguments = process.argv.slice(2);
 if (arguments[0] == 'dev') {
@@ -8,23 +9,53 @@ if (arguments[0] == 'dev') {
 else {
     var configFile = __dirname + '/config/config.json';
 }
-// Load file and create Database Pool
+// Load config file
 var dataSting = fs.readFileSync(configFile, 'utf8');
 var configData = JSON.parse(dataSting);
+// Create Database Pool
 var pool = mySql.createPool(configData.database);
 console.log('Database Pool Established');
-function getPool() {
+// Create Mail Transport
+var transporter = nodemailer.createTransport(configData.mail);
+function getDatabasePool() {
     return pool;
 }
-exports.getPool = getPool;
+exports.getDatabasePool = getDatabasePool;
+function getMailTransporter() {
+    return transporter;
+}
+exports.getMailTransporter = getMailTransporter;
+function getSenderDetails() {
+    return '"' + configData.senderAddress.name + '" <' + configData.senderAddress.address + '>';
+}
+exports.getSenderDetails = getSenderDetails;
 function getInstallPassword() {
     return configData.installPassword;
 }
 exports.getInstallPassword = getInstallPassword;
 var model = (function () {
     function model() {
+        this._isChanged = false;
         this.connectionPool = pool;
     }
+    Object.defineProperty(model.prototype, "isChanged", {
+        get: function () {
+            return this._isChanged;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(model.prototype, "id", {
+        get: function () {
+            return this._id;
+        },
+        set: function (newID) {
+            this._id = newID;
+            this._isChanged = true;
+        },
+        enumerable: true,
+        configurable: true
+    });
     model.prototype.Count = function (callback) {
         this.connectionPool.query('SELECT COUNT(*) as "result" FROM ??;', [this.tableName], function (err, res, fields) {
             if (err) {
@@ -39,4 +70,4 @@ var model = (function () {
     return model;
 })();
 exports.model = model;
-//# sourceMappingURL=db.js.map
+//# sourceMappingURL=services.js.map

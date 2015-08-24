@@ -5,14 +5,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var validator = require('validator');
-var User = (function (_super) {
-    __extends(User, _super);
-    function User() {
+var UserModel = (function (_super) {
+    __extends(UserModel, _super);
+    function UserModel() {
         _super.apply(this, arguments);
         this.urlRoot = '/first/createadmin';
     }
-    Object.defineProperty(User.prototype, "email", {
+    Object.defineProperty(UserModel.prototype, "email", {
         get: function () {
             return _super.prototype.get.call(this, 'email');
         },
@@ -22,7 +21,7 @@ var User = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(User.prototype, "username", {
+    Object.defineProperty(UserModel.prototype, "username", {
         get: function () {
             return _super.prototype.get.call(this, 'username');
         },
@@ -32,20 +31,32 @@ var User = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    User.prototype.validate = function (attr, options) {
-        if (this.has('email')) {
-            if (!validator.isEmail(this.email)) {
-                return 'email';
-            }
-        }
-    };
-    return User;
+    return UserModel;
 })(Backbone.Model);
+var userData = new UserModel();
 var CreateAdminAppView = (function (_super) {
     __extends(CreateAdminAppView, _super);
-    function CreateAdminAppView() {
-        _super.apply(this, arguments);
+    function CreateAdminAppView(options) {
+        _super.call(this, options);
+        this.events = {
+            'blur input': 'update',
+            'submit': 'doSubmit' // Refer to root element with just an event name
+        };
+        this.setElement($('#createAdminForm'), true);
+        this.model = userData;
     }
+    CreateAdminAppView.prototype.update = function () {
+        this.model.email = $('#email').val();
+        this.model.username = $('#username').val();
+    };
+    CreateAdminAppView.prototype.doSubmit = function (event) {
+        //event.preventDefault();
+        //return false;
+        // For now use standard submission
+    };
     return CreateAdminAppView;
 })(Backbone.View);
+$(function () {
+    new CreateAdminAppView();
+});
 //# sourceMappingURL=createAdmin.js.map

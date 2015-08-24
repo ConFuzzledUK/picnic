@@ -1,8 +1,6 @@
 ﻿/// <reference path="../../../typings/browser.d.ts" />
 
-import validator = require('validator');
-
-class User extends Backbone.Model {
+class UserModel extends Backbone.Model {
     get email(): string {
         return super.get('email');
     }
@@ -19,19 +17,39 @@ class User extends Backbone.Model {
         super.set("username", value);
     }
 
-    validate(attr, options) {
-        if (this.has('email')) {
-            if (!validator.isEmail(this.email)) {
-                return 'email';
-            }
-        }
-    }
-
     urlRoot = '/first/createadmin';
 }
 
-class CreateAdminAppView extends Backbone.View<User> {
-    model: User;
+var userData = new UserModel();
 
-    // CONTINUE: Finish View
+class CreateAdminAppView extends Backbone.View<UserModel> {
+    model: UserModel;
+
+    constructor(options?) {
+        super(options);
+
+        this.events = <any> {
+            'blur input': 'update',
+            'submit': 'doSubmit' // Refer to root element with just an event name
+        };
+
+        this.setElement($('#createAdminForm'), true);
+
+        this.model = userData;
+    }
+
+    update() {
+        this.model.email = $('#email').val();
+        this.model.username = $('#username').val();
+    }
+    
+    doSubmit(event) {
+        //event.preventDefault();
+        //return false;
+        // For now use standard submission
+    }
 }
+
+$(() => {
+    new CreateAdminAppView();
+});

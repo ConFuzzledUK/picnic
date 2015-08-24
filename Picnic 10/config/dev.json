@@ -5,5 +5,16 @@
         "database": "picnic10",
         "timezone": "utc"
     },
+    "mail": {
+        "service": "hotmail",
+        "auth": {
+            "user": "nidonocu@hotmail.co.uk",
+            "pass": "apbbdzcenrqjffzb"
+        }
+    },
+    "senderAddress": {
+        "name": "Picnic Testing",
+        "address": "nidonocu@hotmail.co.uk"
+    },
     "installPassword": "swordfish"
 }
