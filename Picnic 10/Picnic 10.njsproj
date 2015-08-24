@@ -50,9 +50,10 @@
     <Content Include="tsd.json" />
     <Content Include="views\first\createadmin.jade" />
     <Content Include="views\first\installPassword.jade" />
+    <Content Include="views\first\sentemail.jade" />
     <Content Include="views\layout.jade" />
     <TypeScriptCompile Include="classes\core.ts" />
-    <TypeScriptCompile Include="db.ts" />
+    <TypeScriptCompile Include="services.ts" />
     <TypeScriptCompile Include="picnic.ts" />
     <Content Include="package.json" />
     <Content Include="README.md" />
@@ -70,6 +71,11 @@
     <TypeScriptCompile Include="typings\mime\mime.d.ts" />
     <TypeScriptCompile Include="typings\morgan\morgan.d.ts" />
     <TypeScriptCompile Include="typings\mysql\mysql.d.ts" />
+    <TypeScriptCompile Include="typings\node-uuid\node-uuid.d.ts" />
+    <TypeScriptCompile Include="typings\nodemailer-direct-transport\nodemailer-direct-transport.d.ts" />
+    <TypeScriptCompile Include="typings\nodemailer-smtp-transport\nodemailer-smtp-transport.d.ts" />
+    <TypeScriptCompile Include="typings\nodemailer\nodemailer-types.d.ts" />
+    <TypeScriptCompile Include="typings\nodemailer\nodemailer.d.ts" />
     <TypeScriptCompile Include="typings\node\node.d.ts" />
     <TypeScriptCompile Include="typings\serve-favicon\serve-favicon.d.ts" />
     <TypeScriptCompile Include="typings\serve-static\serve-static.d.ts" />
@@ -85,6 +91,10 @@
     <Folder Include="public\js\first\" />
     <Folder Include="routes\" />
     <Folder Include="typings\backbone\" />
+    <Folder Include="typings\node-uuid\" />
+    <Folder Include="typings\nodemailer-direct-transport\" />
+    <Folder Include="typings\nodemailer-smtp-transport\" />
+    <Folder Include="typings\nodemailer\" />
     <Folder Include="views\" />
     <Folder Include="public\" />
     <Folder Include="public\css\" />
