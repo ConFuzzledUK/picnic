@@ -50,6 +50,7 @@
     <Content Include="tsd.json" />
     <Content Include="views\first\createadmin.jade" />
     <Content Include="views\first\installPassword.jade" />
+    <Content Include="views\first\password.jade" />
     <Content Include="views\first\sentemail.jade" />
     <Content Include="views\layout.jade" />
     <TypeScriptCompile Include="classes\core.ts" />
@@ -69,6 +70,8 @@
     <TypeScriptCompile Include="typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="typings\local.d.ts" />
     <TypeScriptCompile Include="typings\mime\mime.d.ts" />
+    <TypeScriptCompile Include="typings\moment\moment-node.d.ts" />
+    <TypeScriptCompile Include="typings\moment\moment.d.ts" />
     <TypeScriptCompile Include="typings\morgan\morgan.d.ts" />
     <TypeScriptCompile Include="typings\mysql\mysql.d.ts" />
     <TypeScriptCompile Include="typings\node-uuid\node-uuid.d.ts" />
@@ -91,6 +94,7 @@
     <Folder Include="public\js\first\" />
     <Folder Include="routes\" />
     <Folder Include="typings\backbone\" />
+    <Folder Include="typings\moment\" />
     <Folder Include="typings\node-uuid\" />
     <Folder Include="typings\nodemailer-direct-transport\" />
     <Folder Include="typings\nodemailer-smtp-transport\" />
