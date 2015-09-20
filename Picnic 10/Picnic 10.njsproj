@@ -6,6 +6,7 @@
     <Name>Picnic 10</Name>
     <RootNamespace>Picnic 10</RootNamespace>
     <ScriptArguments>dev</ScriptArguments>
+    <Environment>dev</Environment>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -57,7 +58,6 @@
     <TypeScriptCompile Include="services.ts" />
     <TypeScriptCompile Include="picnic.ts" />
     <Content Include="package.json" />
-    <Content Include="README.md" />
     <TypeScriptCompile Include="public\js\first\createAdmin.ts" />
     <TypeScriptCompile Include="public\js\formfields.ts" />
     <TypeScriptCompile Include="routes\first.ts" />

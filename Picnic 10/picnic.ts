@@ -21,8 +21,8 @@ import webLogger = require('morgan');
 var app = express();
 
 // Check if we are in development mode
-var arguments = process.argv.slice(2);
-if (arguments[0] == 'dev') {
+var args = process.argv.slice(2);
+if (args[0] == 'dev') {
     app.set('env', 'development');
 }
 else {
@@ -30,7 +30,7 @@ else {
 }
 
 // Set up Database
-import db = require('services');
+import db = require('./services');
 
 // Set up auditor
 import core = require('./classes/core');

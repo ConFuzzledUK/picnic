@@ -3,8 +3,8 @@ import mySql = require('mysql');
 import nodemailer = require('nodemailer');
 
 // Choose config file
-var arguments = process.argv.slice(2);
-if (arguments[0] == 'dev') {
+var args = process.argv.slice(2);
+if (args[0] == 'dev') {
     var configFile = __dirname + '/config/dev.json';
 } else {
     var configFile = __dirname + '/config/config.json';

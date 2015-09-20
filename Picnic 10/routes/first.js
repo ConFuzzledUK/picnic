@@ -71,9 +71,9 @@ router.post('/createadmin', function (req, res) {
                 core.audit.save("Created Global Admin: " + user.username, core.AuditTypes.Security, res.insertId, res.insertId);
         });
         // Send E-mail
-        var arguments = process.argv.slice(2); // For checking dev state
+        var args = process.argv.slice(2); // For checking dev state
         var returnURI = ((req.secure) ? 'https' : 'http') + '://' +
-            req.hostname + ((arguments[0] == 'dev') ? ':1337' : '') +
+            req.hostname + ((args[0] == 'dev') ? ':1337' : '') +
             '/first/password?code=' + uuid;
         var bodyText = 'Hello ' + user.username + '! Your account on Picnic 10 has been created. Go to '
             + returnURI +

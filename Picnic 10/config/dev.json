@@ -1,20 +1,20 @@
 {
     "database": {
-        "user": "picnic",
-        "password": "z1qi5a",
-        "database": "picnic10",
+        "user": "{username}",
+        "password": "{password}",
+        "database": "{dbname}",
         "timezone": "utc"
     },
     "mail": {
-        "service": "hotmail",
+        "service": "{service}",
         "auth": {
-            "user": "nidonocu@hotmail.co.uk",
-            "pass": "apbbdzcenrqjffzb"
+            "user": "{username}",
+            "pass": "{password}"
         }
     },
     "senderAddress": {
-        "name": "Picnic Testing",
-        "address": "nidonocu@hotmail.co.uk"
+        "name": "{displayname}",
+        "address": "{displayaddress}"
     },
-    "installPassword": "swordfish"
+    "installPassword": "{installpass}"
 }

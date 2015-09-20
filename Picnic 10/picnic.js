@@ -14,8 +14,8 @@ var webLogger = require('morgan');
 // Creation the application object
 var app = express();
 // Check if we are in development mode
-var arguments = process.argv.slice(2);
-if (arguments[0] == 'dev') {
+var args = process.argv.slice(2);
+if (args[0] == 'dev') {
     app.set('env', 'development');
 }
 else {
