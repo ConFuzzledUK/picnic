@@ -1,2 +1,0 @@
-Q:\Web Projects\Picnic 10\Picnic 10\obj\Debug\Picnic 10.njsprojResolveAssemblyReference.cache
-Q:\Web Projects\Picnic 10\Picnic 10\bin\Microsoft.NodejsTools.WebRole.dll
