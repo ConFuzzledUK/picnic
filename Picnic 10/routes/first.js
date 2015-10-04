@@ -75,17 +75,21 @@ router.post('/createadmin', function (req, res) {
         var returnURI = ((req.secure) ? 'https' : 'http') + '://' +
             req.hostname + ((args[0] == 'dev') ? ':1337' : '') +
             '/first/password?code=' + uuid;
-        var bodyText = 'Hello ' + user.username + '! Your account on Picnic 10 has been created. Go to '
+        var plainText = 'Hello ' + user.username + '! Your account on Picnic 10 has been created. Go to '
             + returnURI +
             ' to confirm your e-mail account and set your password.';
-        var htmlText = 'Hello ' + user.username + '!<br/>Your account on Picnic 10 has been created. Go to <a href="' +
-            returnURI + '">' + returnURI + '</a>' +
-            ' to confirm your e-mail account and set your password.';
+        var jade = require('jade');
+        var htmlText = jade.renderFile('email/email_system.jade', {
+            title: 'Welcome ' + user.username + '!',
+            body: "Your account on Picnic 10 has been created. To finish up, you'll need to click this button and then set your password.",
+            link: returnURI,
+            linkText: 'Confirm E-mail and continue'
+        });
         services.getMailTransporter().sendMail({
             from: services.getSenderDetails(),
             to: user.email,
             subject: 'Account Created',
-            text: bodyText,
+            text: plainText,
             html: htmlText
         }, function (err, info) {
             console.log(err);
