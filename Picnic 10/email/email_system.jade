@@ -1,0 +1,39 @@
+﻿doctype transitional
+html
+  head
+    meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
+    title
+  body
+    table(border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable")
+        tr
+            td(align="center" valign="top" style="background-color: #26282b; color: #fff;")
+                table(border="0" cellpadding="10" cellspacing="0" width="600" id="emailContainer")
+                    tr
+                        td(align="center" valign="top")
+                            table(border="0" cellpadding="10" cellspacing="0" width="100%" id="emailHeader")
+                                tr
+                                    td(align="left" valign="center" style="background-color: #222; border-color: #080808; border-width: 1px; border-style: solid; color: #fff;")
+                                        img(src="https://reg.confuzzled.org.uk/2016/images/Logo64.png" style="(max-height: 20px;)" alt="Logo" width="20" height="20")
+                                        | &nbsp; &nbsp;
+                                        span(style="font-size: 16pt; font-family: 'Source Sans Pro', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Tahoma', sans-serif; font-weight: thin; display: inline;")
+                                            | Picnic
+                                tr
+                                    td
+                                tr
+                                    td(align="center" valign="top" style="color: #fff; background-color: #2ea98a;")
+                                        h2(style="font-family: 'Source Sans Pro', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Tahoma', sans-serif;") <strong>#{title}</strong>
+                            table(border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody")
+                                tr
+                                    td(align="center" valign="top" style="font-size: 12pt; line-height: 22.85px; font-family: 'Source Sans Pro', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Tahoma', sans-serif; background-color: #26282b; color: #fff;")
+                                        p #{body}
+                            if link
+                                table(border="0" cellpadding="20" cellspacing="0" id="linkButton" style="background-color: #337ab7; border: solid 1px #2e6da4;")
+                                    tr
+                                        td(align="center" valign="top" style="color: #fff; font-size: 14pt; font-family: 'Source Sans Pro', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Tahoma', sans-serif; font-weight: thin; text-transform: uppercase; padding: 10px 16px;")
+                                            a(href="#{link}" target="_blank" style="color: #fff; text-decoration: none;") #{linkText}
+                            br
+                            table(border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter" style="border-top: 1px solid #333; padding-top: 3px; font-family: 'Source Sans Pro', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Tahoma', sans-serif;")
+                                tr
+                                    td(align="left" valign="top")
+                                        - var year = new Date().getFullYear();
+                                        p(style="font-size: 10pt; color: #777;") &copy; #{year} - ConFuzzled UK Ltd.

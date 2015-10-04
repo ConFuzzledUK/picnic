@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="config\dev.json" />
+    <Content Include="email\email_system.jade" />
     <Content Include="public\apple-touch-icon.png" />
     <Content Include="public\browserconfig.xml" />
     <Content Include="public\css\base.css" />
@@ -66,6 +67,7 @@
     <TypeScriptCompile Include="typings\browser.d.ts" />
     <TypeScriptCompile Include="typings\cookie-parser\cookie-parser.d.ts" />
     <TypeScriptCompile Include="typings\express\express.d.ts" />
+    <TypeScriptCompile Include="typings\jade\jade.d.ts" />
     <TypeScriptCompile Include="typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="typings\local.d.ts" />
@@ -89,11 +91,13 @@
   <ItemGroup>
     <Folder Include="classes\" />
     <Folder Include="config\" />
+    <Folder Include="email\" />
     <Folder Include="public\images\" />
     <Folder Include="public\js\libs\" />
     <Folder Include="public\js\first\" />
     <Folder Include="routes\" />
     <Folder Include="typings\backbone\" />
+    <Folder Include="typings\jade\" />
     <Folder Include="typings\moment\" />
     <Folder Include="typings\node-uuid\" />
     <Folder Include="typings\nodemailer-direct-transport\" />
