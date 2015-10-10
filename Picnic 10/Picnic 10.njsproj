@@ -50,6 +50,7 @@
     <Content Include="public\tile-wide.png" />
     <Content Include="public\tile.png" />
     <Content Include="tsd.json" />
+    <Content Include="views\first\bad_code.jade" />
     <Content Include="views\first\createadmin.jade" />
     <Content Include="views\first\installPassword.jade" />
     <Content Include="views\first\password.jade" />

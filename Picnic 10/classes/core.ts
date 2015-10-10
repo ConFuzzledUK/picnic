@@ -58,8 +58,13 @@ export class User extends services.model {
         return this._password;
     }
     set password(newValue: string) {
-        this._password = newValue;
-        this._isChanged = true;
+        if (newValue.length < 10)
+            throw new Error('Password too short');
+        else {
+
+            this._password = newValue;
+            this._isChanged = true;
+        }
     }
 
     private _username: string;
@@ -128,6 +133,7 @@ export class User extends services.model {
     constructor() {
         super();
         this.tableName = 'users';
+        this.objectName = 'User';
     }
 
     Create(callback?: (err?: Error, res?: any) => void): string {
@@ -147,7 +153,7 @@ export class User extends services.model {
                 status: this.status,
                 global_admin: this.global_admin
             },
-            function (err, res) {
+            (err, res) => {
                 if (err)
                     console.log('Error Creating User: ' + err);
                 else {
@@ -158,6 +164,46 @@ export class User extends services.model {
             });
         // Assume things will go well and return the code so we can continue with other operations
         return this.email_code;
+    }
+
+    Load(callback: (res?: boolean, err?: Error) => void, id?: number) {
+        super.LoadData((err, results: Array<any>) => {
+            // Internal Error
+            if (err) {
+                console.log('Database Error: ' + err);
+                callback(undefined, err);
+                return;
+            }
+            // Sanity Check
+            if (results.length > 1) {
+                throw new Error('Error: Load returned more than one result');
+            }
+            // Found record
+            if (results.length == 1) {
+                for (var field in results[0]) {
+                    this[field] = results[0][field];
+                }
+                this._isChanged = false;
+                console.log('Loaded User: ' + this.id);
+                callback(true);
+            }
+            // No Results
+            if (results.length == 0) {
+                callback(false);
+            }
+        }, id);
+    }
+
+    Save(callback: (err?: Error, res?: any) => void) {
+        super.Save({
+            email: this.email,
+            username: this.username,
+            password: null,
+            email_code: this.email_code,
+            email_code_date: this.email_code_date,
+            status: this.status,
+            global_admin: this.global_admin
+        }, callback);
     }
 
     CountActiveAdmins(callback: (res: number, err?: Error) => void) {

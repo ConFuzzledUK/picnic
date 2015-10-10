@@ -1,0 +1,20 @@
+﻿extends ../layout.jade
+block styles
+    link(rel="stylesheet" href="/css/first.css?v=1")
+
+block body
+    nav.navbar.navbar-inverse
+        .container
+            .navbar-header
+                a.navbar-brand(href="/")
+                    img(alt="Logo" title="Logo" src="/images/sitelogo.png" style="max-height: 20px;")
+    br
+    .container
+        .row
+            .col-md-8
+                .alert.alert-danger
+                    p <strong>Invalid Code</strong>
+                        br 
+                        | Sorry, that doesn't appear to be a valid code. Please check it and try again.
+            .col-md-4.text-center
+                img(alt='Picnic Logo', title='Picnic Logo', src="/images/logo256.png")

@@ -48,6 +48,7 @@ var User = (function (_super) {
     function User() {
         _super.call(this);
         this.tableName = 'users';
+        this.objectName = 'User';
     }
     Object.defineProperty(User.prototype, "email", {
         get: function () {
@@ -69,8 +70,12 @@ var User = (function (_super) {
             return this._password;
         },
         set: function (newValue) {
-            this._password = newValue;
-            this._isChanged = true;
+            if (newValue.length < 10)
+                throw new Error('Password too short');
+            else {
+                this._password = newValue;
+                this._isChanged = true;
+            }
         },
         enumerable: true,
         configurable: true
@@ -153,6 +158,7 @@ var User = (function (_super) {
         configurable: true
     });
     User.prototype.Create = function (callback) {
+        var _this = this;
         this.email_code = uuid.v4();
         this.email_code_date = new Date();
         this.status = userStatus.New;
@@ -170,12 +176,51 @@ var User = (function (_super) {
                 console.log('Error Creating User: ' + err);
             else {
                 console.log('Created User: ' + res.insertId);
-                this.id = res.insertId;
+                _this.id = res.insertId;
             }
             callback(err, res);
         });
         // Assume things will go well and return the code so we can continue with other operations
         return this.email_code;
+    };
+    User.prototype.Load = function (callback, id) {
+        var _this = this;
+        _super.prototype.LoadData.call(this, function (err, results) {
+            // Internal Error
+            if (err) {
+                console.log('Database Error: ' + err);
+                callback(undefined, err);
+                return;
+            }
+            // Sanity Check
+            if (results.length > 1) {
+                throw new Error('Error: Load returned more than one result');
+            }
+            // Found record
+            if (results.length == 1) {
+                for (var field in results[0]) {
+                    _this[field] = results[0][field];
+                }
+                _this._isChanged = false;
+                console.log('Loaded User: ' + _this.id);
+                callback(true);
+            }
+            // No Results
+            if (results.length == 0) {
+                callback(false);
+            }
+        }, id);
+    };
+    User.prototype.Save = function (callback) {
+        _super.prototype.Save.call(this, {
+            email: this.email,
+            username: this.username,
+            password: null,
+            email_code: this.email_code,
+            email_code_date: this.email_code_date,
+            status: this.status,
+            global_admin: this.global_admin
+        }, callback);
     };
     User.prototype.CountActiveAdmins = function (callback) {
         this.connectionPool.query('SELECT COUNT(*) as "result" FROM users WHERE global_admin = 1 AND status = ?;', [userStatus.Active], function (err, res, fields) {

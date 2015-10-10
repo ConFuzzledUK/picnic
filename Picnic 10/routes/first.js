@@ -1,4 +1,5 @@
 var express = require('express');
+var _ = require("underscore.string");
 var services = require('../services');
 var core = require('../classes/core');
 var router = express.Router();
@@ -57,8 +58,8 @@ router.post('/createadmin', function (req, res) {
         // Create User
         var user = new core.User();
         try {
-            user.email = req.body.email;
-            user.username = req.body.username;
+            user.email = _.trim(req.body.email);
+            user.username = _.trim(req.body.username);
         }
         catch (fault) {
             console.log(fault);
@@ -113,7 +114,12 @@ router.get('/password', function (req, res) {
     if (req.query.code) {
         var user = new core.User();
         user.GetByEmailCode(function (foundResult, err) {
-            res.render('first/password', { pageTitle: 'Picnic 10', username: user.username });
+            if (foundResult) {
+                res.render('first/password', { pageTitle: 'Picnic 10', username: user.username });
+            }
+            else {
+                res.render('first/bad_code', { pageTitle: 'Picnic 10' });
+            }
         }, req.query.code, true);
     }
     else
@@ -121,14 +127,20 @@ router.get('/password', function (req, res) {
 });
 router.post('/password', function (req, res) {
     console.log('Set First Admin Password Submission');
-    if (req.cookies.goodInstallPassword === services.getInstallPassword()) {
-        // Check required are present
-        if (!req.body.email || !req.body.username) {
-            res.redirect('/first/createadmin'); // Bounce out if fields are missing
-            return;
-        }
-        // Create User
+    // Check required are present
+    if (!req.body.code || !req.body.password || !req.body.confirm) {
+        res.redirect('/first/password'); // Bounce out if fields are missing
+        return;
+    }
+    // Check E-mail Code and load user
+    if (req.query.code) {
         var user = new core.User();
+        user.GetByEmailCode(function (foundResult, err) {
+            if (foundResult) {
+            }
+            else
+                res.redirect('/');
+        }, req.query.code, true);
     }
     else
         res.redirect('/');

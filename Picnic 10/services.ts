@@ -29,7 +29,7 @@ console.log('Database Pool Established');
 // Create Mail Transport
 var transporter = nodemailer.createTransport(configData.mail);
 
-export function getDatabasePool (){
+export function getDatabasePool() {
     return pool;
 }
 
@@ -49,6 +49,8 @@ export class model {
     protected connectionPool: mySql.IPool;
 
     protected tableName: string;
+
+    protected objectName: string;
 
     protected _isChanged: boolean = false;
 
@@ -71,15 +73,56 @@ export class model {
         this.connectionPool = pool;
     }
 
+    Save(properties: any, callback?: (err?: Error, res?: any) => void) {
+        this.connectionPool.query('UPDATE ? SET ? WHERE `id` = ?',
+            [
+                this.tableName,
+                properties,
+                this.id
+            ],
+            (err, res) => {
+                if (err)
+                    console.log('Error Updating ' + this.objectName + ' ' + this.id + ': ' + err);
+                else {
+                    console.log('Updated ' + this.objectName + ': ' + this.id);
+                }
+                callback(err, res);
+            });
+    }
+
+    LoadData(callback: (err?: Error, res?: any) => void, id?: number) {
+        // Load ID if defined here
+        if (id != undefined) {
+            this.id = id;
+        }
+        // Sanity Check
+        if (this.id == undefined) {
+            callback(new Error('No ID defined when loading'));
+            return;
+        }
+
+        this.connectionPool.query('SELECT * FROM ?? WHERE `id` = ?',
+            [
+                this.tableName,
+                this.id
+            ],
+            (err, res) => {
+                callback(err, res);
+            });
+    }
+
     Count(callback: (res: number, err?: Error) => void) {
-        this.connectionPool.query('SELECT COUNT(*) as "result" FROM ??;', [this.tableName], function (err, res, fields) {
-            if (err) {
-                console.log('Database Error: ' + err);
-                callback(undefined, err);
-            }
-            else {
-                callback(res[0].result);
-            }
-        });
+        this.connectionPool.query(
+            'SELECT COUNT(*) as "result" FROM ??;',
+            [this.tableName],
+            function (err, res, fields) {
+                if (err) {
+                    console.log('Database Error: ' + err);
+                    callback(undefined, err);
+                }
+                else {
+                    callback(res[0].result);
+                }
+            });
     }
 }

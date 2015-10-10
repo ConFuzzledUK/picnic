@@ -56,6 +56,38 @@ var model = (function () {
         enumerable: true,
         configurable: true
     });
+    model.prototype.Save = function (properties, callback) {
+        var _this = this;
+        this.connectionPool.query('UPDATE ? SET ? WHERE `id` = ?', [
+            this.tableName,
+            properties,
+            this.id
+        ], function (err, res) {
+            if (err)
+                console.log('Error Updating ' + _this.objectName + ' ' + _this.id + ': ' + err);
+            else {
+                console.log('Updated ' + _this.objectName + ': ' + _this.id);
+            }
+            callback(err, res);
+        });
+    };
+    model.prototype.LoadData = function (callback, id) {
+        // Load ID if defined here
+        if (id != undefined) {
+            this.id = id;
+        }
+        // Sanity Check
+        if (this.id == undefined) {
+            callback(new Error('No ID defined when loading'));
+            return;
+        }
+        this.connectionPool.query('SELECT * FROM ?? WHERE `id` = ?', [
+            this.tableName,
+            this.id
+        ], function (err, res) {
+            callback(err, res);
+        });
+    };
     model.prototype.Count = function (callback) {
         this.connectionPool.query('SELECT COUNT(*) as "result" FROM ??;', [this.tableName], function (err, res, fields) {
             if (err) {
