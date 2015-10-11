@@ -58,7 +58,7 @@ var model = (function () {
     });
     model.prototype.Save = function (properties, callback) {
         var _this = this;
-        this.connectionPool.query('UPDATE ? SET ? WHERE `id` = ?', [
+        this.connectionPool.query('UPDATE ?? SET ? WHERE `id` = ?', [
             this.tableName,
             properties,
             this.id

@@ -74,7 +74,7 @@ export class model {
     }
 
     Save(properties: any, callback?: (err?: Error, res?: any) => void) {
-        this.connectionPool.query('UPDATE ? SET ? WHERE `id` = ?',
+        this.connectionPool.query('UPDATE ?? SET ? WHERE `id` = ?',
             [
                 this.tableName,
                 properties,

@@ -79,3 +79,11 @@ body {
     border-radius: 0;
     text-transform: uppercase;
 }
+
+.panel {
+    border-radius: 0;
+}
+
+.panel-heading {
+    border-radius: 0;
+}

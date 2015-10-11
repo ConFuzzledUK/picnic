@@ -7,6 +7,7 @@ var services = require('../services');
 var _ = require("underscore.string");
 var uuid = require("node-uuid");
 var moment = require("moment");
+var bcrypt = require("bcryptjs");
 (function (AuditTypes) {
     AuditTypes[AuditTypes['System'] = 0] = 'System';
     AuditTypes[AuditTypes['Security'] = 1] = 'Security';
@@ -70,12 +71,8 @@ var User = (function (_super) {
             return this._password;
         },
         set: function (newValue) {
-            if (newValue.length < 10)
-                throw new Error('Password too short');
-            else {
-                this._password = newValue;
-                this._isChanged = true;
-            }
+            this._password = newValue;
+            this._isChanged = true;
         },
         enumerable: true,
         configurable: true
@@ -215,7 +212,7 @@ var User = (function (_super) {
         _super.prototype.Save.call(this, {
             email: this.email,
             username: this.username,
-            password: null,
+            password: this.password,
             email_code: this.email_code,
             email_code_date: this.email_code_date,
             status: this.status,
@@ -261,6 +258,61 @@ var User = (function (_super) {
                 else
                     callback(false);
             }
+        });
+    };
+    User.prototype.GetByEmail = function (callback, email, ignoreStatus) {
+        var _this = this;
+        if (ignoreStatus === void 0) { ignoreStatus = false; }
+        if (ignoreStatus) {
+            var q = "SELECT * from users WHERE email = ? LIMIT 1";
+            var params = [email];
+        }
+        else {
+            var q = "SELECT * from users WHERE email_code = ? AND status = ? LIMIT 1";
+            var params = [email, userStatus.Active];
+        }
+        this.connectionPool.query(q, params, function (err, res, fields) {
+            if (err) {
+                console.log('Database Error: ' + err);
+                callback(undefined, err);
+            }
+            else {
+                if (res.length == 1) {
+                    for (var field in res[0]) {
+                        _this[field] = res[0][field];
+                    }
+                    _this._isChanged = false;
+                    callback(true);
+                }
+                else
+                    callback(false);
+            }
+        });
+    };
+    User.prototype.SetPassword = function (clear, callback) {
+        var _this = this;
+        var startTime = new Date().getTime();
+        bcrypt.genSalt(10, function (err, salt) {
+            if (err) {
+                throw new Error('Error while generating Salt');
+            }
+            bcrypt.hash(clear, salt, function (err, encryptedString) {
+                if (err) {
+                    throw new Error('Error while hashing password');
+                }
+                _this.password = encryptedString;
+                var elapsed = new Date().getTime() - startTime;
+                console.log('Encrypted Password in:' + elapsed + 'ms');
+                callback();
+            });
+        });
+    };
+    User.prototype.ComparePassword = function (challange, callback) {
+        var startTime = new Date().getTime();
+        bcrypt.compare(challange, this.password, function (err, res) {
+            var elapsed = new Date().getTime() - startTime;
+            console.log('Compared Password in:' + elapsed + 'ms');
+            callback(res, err);
         });
     };
     return User;

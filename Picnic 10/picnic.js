@@ -56,7 +56,9 @@ app.set('views', 'views');
 app.set('view engine', 'jade');
 // Load Routing handlers
 var firstRoutes = require('./routes/first');
+var adminRoutes = require('./routes/admin');
 app.use('/first', firstRoutes);
+app.use('/admin', adminRoutes);
 // Configure Index Page Handler
 app.get('/', function (req, res) {
     var user = new core.User();
@@ -65,7 +67,7 @@ app.get('/', function (req, res) {
             res.redirect('/first');
         }
         else {
-            res.redirect('/first'); //throw 'NotImplemented';
+            res.redirect('/admin');
         }
     });
 });

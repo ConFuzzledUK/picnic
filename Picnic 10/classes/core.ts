@@ -3,6 +3,7 @@ import services = require('../services');
 import _ = require("underscore.string");
 import uuid = require("node-uuid");
 import moment = require("moment");
+import bcrypt = require("bcryptjs");
 
 export enum AuditTypes { 'System', 'Security', 'Payment', 'Data' };
 
@@ -58,13 +59,8 @@ export class User extends services.model {
         return this._password;
     }
     set password(newValue: string) {
-        if (newValue.length < 10)
-            throw new Error('Password too short');
-        else {
-
-            this._password = newValue;
-            this._isChanged = true;
-        }
+        this._password = newValue;
+        this._isChanged = true;
     }
 
     private _username: string;
@@ -198,7 +194,7 @@ export class User extends services.model {
         super.Save({
             email: this.email,
             username: this.username,
-            password: null,
+            password: this.password,
             email_code: this.email_code,
             email_code_date: this.email_code_date,
             status: this.status,
@@ -244,6 +240,61 @@ export class User extends services.model {
                 else
                     callback(false);
             }
+        });
+    }
+
+    GetByEmail(callback: (recordFound: boolean, err?: Error) => void, email: string, ignoreStatus: boolean = false) {
+        if (ignoreStatus) {
+            var q = "SELECT * from users WHERE email = ? LIMIT 1";
+            var params = <any>[email];
+        }
+        else {
+            var q = "SELECT * from users WHERE email_code = ? AND status = ? LIMIT 1";
+            var params = <any>[email, userStatus.Active];
+        }
+        this.connectionPool.query(q, params, (err, res: Array<User>, fields) => {
+            if (err) {
+                console.log('Database Error: ' + err);
+                callback(undefined, err);
+            }
+            else {
+                if (res.length == 1) {
+                    for (var field in res[0]) {
+                        this[field] = res[0][field];
+                    }
+                    this._isChanged = false;
+                    callback(true);
+                }
+                else
+                    callback(false);
+            }
+        });
+    }
+
+    SetPassword(clear: string, callback: () => void) {
+        var startTime = new Date().getTime();
+        bcrypt.genSalt(10, (err, salt) => {
+            if (err) {
+                throw new Error('Error while generating Salt');
+            }
+            bcrypt.hash(clear, salt, (err, encryptedString) => {
+                if (err) {
+                    throw new Error('Error while hashing password');
+                }
+                this.password = encryptedString;
+                var elapsed = new Date().getTime() - startTime;
+                console.log('Encrypted Password in:' + elapsed + 'ms');
+                callback();
+            });
+        });
+    }
+
+    ComparePassword(challange: string, callback: (result, err) => void) {
+        var startTime = new Date().getTime();
+        bcrypt.compare(challange, this.password, (err, res) => {
+            var elapsed = new Date().getTime() - startTime;
+            console.log('Compared Password in:' + elapsed + 'ms');
+            callback(res, err);
         });
     }
 }

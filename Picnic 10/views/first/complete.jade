@@ -1,0 +1,32 @@
+﻿extends ../layout.jade
+
+block styles
+    link(rel="stylesheet" href="/css/umbreon.css?v=1")
+
+block body
+    nav.navbar.navbar-inverse
+        .container
+            .navbar-header
+                a.navbar-brand(href="/")
+                    img(alt="Logo" title="Logo" src="/images/sitelogo.png" style="max-height: 20px;")
+    .attractor
+        .container
+            .row
+                .col-xs-12
+                    .attractor-text-holder
+                        h1 <i class="fa fa-star"></i> We're all set!
+    br
+    .container
+        .row
+            .col-md-8
+                h1 <i class="fa fa-check"></i> Your password has been saved
+                h3 Now the real work begins&hellip;
+                p You are now ready to begin configuring the system.
+                    br
+                    | But you will need to sign in first with that password to just made!
+                a.btn.btn-lg.btn-primary(href="/admin/sign-in")
+                                | <i class="fa fa-sign-in"></i>&nbsp;&nbsp;Continue to Sign In
+                br
+                br
+            .col-md-4.text-center
+                img(alt='Picnic Logo', title='Picnic Logo', src="/images/logo256.png")

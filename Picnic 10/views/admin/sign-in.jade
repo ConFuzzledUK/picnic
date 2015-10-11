@@ -1,0 +1,63 @@
+﻿extends ../layout.jade
+
+block styles
+    link(rel="stylesheet" href="/css/umbreon.css?v=1")
+
+block body
+    nav.navbar.navbar-inverse
+        .container
+            .navbar-header
+                a.navbar-brand(href="/")
+                    img(alt="Logo" title="Logo" src="/images/sitelogo.png" style="max-height: 20px;")
+                button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#admin-navbar-collapse-1" aria-expanded="false")
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+            .collapse.navbar-collapse#admin-navbar-collapse-1
+                ul.nav.navbar-nav.navbar-right
+                    li.navbar-text.small Not Signed In
+                    li.dropdown
+                        a.dropdown-toggle(href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false")
+                            i.fa.fa-paint-brush
+                            | &nbsp;&nbsp;
+                            i.fa.fa-caret-down
+                        ul.dropdown-menu
+                            li
+                                a#theme-set-umbreon(href="?theme=umb")
+                                    i.fa.fa-moon-o.fa-fw
+                                    | &nbsp;&nbsp;Dark
+                                a#theme-set-espeon(href="?theme=esp")
+                                    i.fa.fa-sun-o.fa-fw
+                                    | &nbsp;&nbsp;Light
+    .container
+        .row
+            .col-sm-3.col-lg-4
+            .col-sm-6.col-lg-4
+                if baduserpass
+                    .alert.alert-danger
+                        p <strong>Access Denied</strong>
+                        p Please check your details and try again.
+                form#adminSignInForm(method="POST")
+                    .panel.panel-primary
+                        .panel-heading
+                            h2.panel-title Adminstration Sign In
+                        .panel-body
+                            .form-group.has-feedback#email-group
+                                label.control-label(for="email") E-mail Address:
+                                input.form-control#email(name="email", type="email", required, placeholder="someguy@example.com" value=user_email ? "#{user_email}" : "")
+                                span.fa.fa-fw.form-control-feedback#email-state-icon(aria-hidden="true")
+                                .field-info-base#email-state-text
+                            .form-group.has-feedback#password-group
+                                label.control-label(for="password") Password:
+                                input.form-control#password(name="password", type="password", required)
+                                span.fa.fa-fw.form-control-feedback#password-state-icon(aria-hidden="true")
+                                .field-info-base#password-state-text
+                            .checkbox
+                                label
+                                    input(type="checkbox" name="keepalive")
+                                    | Keep Me Signed In
+                        .panel-footer
+                            button.btn.btn-primary(type="submit")
+                                | Sign In&nbsp;&nbsp;<i class="fa fa-sign-in"></i>
+            .col-sm-3.col-lg-4

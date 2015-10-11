@@ -42,21 +42,26 @@
     <Content Include="public\browserconfig.xml" />
     <Content Include="public\css\base.css" />
     <Content Include="public\css\default_attractor.png" />
-    <Content Include="public\css\first.css" />
+    <Content Include="public\css\umbreon.css" />
     <Content Include="public\favicon.ico" />
     <Content Include="public\humans.txt" />
     <Content Include="public\images\logo256.png" />
+    <Content Include="public\images\Logo64.png" />
+    <Content Include="public\images\logo_no_text.png" />
     <Content Include="public\images\sitelogo.png" />
     <Content Include="public\tile-wide.png" />
     <Content Include="public\tile.png" />
     <Content Include="tsd.json" />
+    <Content Include="views\admin\sign-in.jade" />
     <Content Include="views\first\bad_code.jade" />
+    <Content Include="views\first\complete.jade" />
     <Content Include="views\first\createadmin.jade" />
     <Content Include="views\first\installPassword.jade" />
     <Content Include="views\first\password.jade" />
     <Content Include="views\first\sentemail.jade" />
     <Content Include="views\layout.jade" />
     <TypeScriptCompile Include="classes\core.ts" />
+    <TypeScriptCompile Include="routes\admin.ts" />
     <TypeScriptCompile Include="services.ts" />
     <TypeScriptCompile Include="picnic.ts" />
     <Content Include="package.json" />
@@ -64,13 +69,17 @@
     <TypeScriptCompile Include="public\js\formfields.ts" />
     <TypeScriptCompile Include="routes\first.ts" />
     <TypeScriptCompile Include="typings\backbone\backbone.d.ts" />
+    <TypeScriptCompile Include="typings\bcryptjs\bcryptjs.d.ts" />
+    <TypeScriptCompile Include="typings\bluebird\bluebird.d.ts" />
     <TypeScriptCompile Include="typings\body-parser\body-parser.d.ts" />
     <TypeScriptCompile Include="typings\browser.d.ts" />
     <TypeScriptCompile Include="typings\cookie-parser\cookie-parser.d.ts" />
+    <TypeScriptCompile Include="typings\express-session\express-session.d.ts" />
     <TypeScriptCompile Include="typings\express\express.d.ts" />
     <TypeScriptCompile Include="typings\jade\jade.d.ts" />
     <TypeScriptCompile Include="typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="typings\knex\knex.d.ts" />
     <TypeScriptCompile Include="typings\local.d.ts" />
     <TypeScriptCompile Include="typings\mime\mime.d.ts" />
     <TypeScriptCompile Include="typings\moment\moment-node.d.ts" />
@@ -97,8 +106,13 @@
     <Folder Include="public\js\libs\" />
     <Folder Include="public\js\first\" />
     <Folder Include="routes\" />
+    <Folder Include="routes\admin\" />
     <Folder Include="typings\backbone\" />
+    <Folder Include="typings\bcryptjs\" />
+    <Folder Include="typings\bluebird\" />
+    <Folder Include="typings\express-session\" />
     <Folder Include="typings\jade\" />
+    <Folder Include="typings\knex\" />
     <Folder Include="typings\moment\" />
     <Folder Include="typings\node-uuid\" />
     <Folder Include="typings\nodemailer-direct-transport\" />
@@ -124,6 +138,7 @@
     <Folder Include="typings\underscore.string\" />
     <Folder Include="typings\underscore\" />
     <Folder Include="views\first\" />
+    <Folder Include="views\admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="public\js\libs\modernizr-latest.js" />
